@@ -6,13 +6,7 @@
 
     </div>
     <div v-else>
-      <input type="email" v-model="email">
-      <button @click="logMeIn()">Zaloguj się</button>
-      <div v-if="!email.includes('@')">Twój email jest nieprawidlowy!</div>
-      <div v-else-if="email.length < 10">Ale masz krótki adres!</div>
-      <div v-else-if="email.length < 15">Twój adres e-mail jest w sam raz.</div>
-      <div v-else>Twój adres e-mail jest stanowczo za długi.</div>
-      {{email.length }}
+      <LoginForm @login="(username) => logMeIn(username)"></LoginForm>
     </div>
   </div>
 </template>
@@ -20,16 +14,21 @@
 <script>
 import "milligram";
 
+import LoginForm from "./LoginForm";
+
 export default {
+
+  components: {LoginForm},
 data() {
   return {
-    email: 'mateusz.zachacz@gmail.com',
+    email: '',
     loggedIn: false,
     password: ''
   };
 },
   methods: {
-    logMeIn() {
+    logMeIn(username) {
+      this.email = username;
       this.loggedIn = true;
     },
     logMeOut() {
